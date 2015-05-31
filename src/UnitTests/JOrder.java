@@ -52,8 +52,8 @@ public class JOrder {
 	}
 
 	/**
-	 * 
-	 * @throws SQLException
+	 * This is a positive test, testing adding a part step to database
+	 * @throws SQLException SQL-server can fail
 	 */
 	@Test
 	public void CanAddPartStep() throws SQLException
@@ -74,6 +74,10 @@ public class JOrder {
 		}
 	}
 
+	/**
+	 * This is a negative test, testing an order will not be returned with ID under 0
+	 * @throws SQLException SQL-server can fail
+	 */
 	@Test(expected=IllegalArgumentException.class)
 	public void negativeTest_NoOrder_WithNegativeNumber() throws SQLException
 	{
@@ -81,6 +85,10 @@ public class JOrder {
 		Order o = ctr.findOrder(-1);
 	}
 	
+	/**
+	 * This is negative test, testing an order will not be returned with ID 0
+	 * @throws SQLException SQL-server can fail
+	 */
 	@Test(expected=IllegalArgumentException.class)
 	public void negativeTest_NoOrder_WithZero() throws SQLException
 	{
@@ -88,6 +96,10 @@ public class JOrder {
 		Order o = ctr.findOrder(0);
 	}
 	
+	/**
+	 * This is a positive test, testing all active orders will be returned by restaurant ID and all data is filled in the domain model
+	 * @throws SQLException SQL-server can fail
+	 */
 	@Test
 	public void positiveTest_CanFindAllActiveOrders() throws SQLException
 	{
@@ -98,29 +110,58 @@ public class JOrder {
 		assertEquals(2, orders.get(0).getPartOrderList().size());
 	}
 	
+	/**
+	 * This is a positive test, testing delete part steps
+	 * @throws SQLException
+	 */
 	@Test
 	public void positiveTest_deletePartSteps() throws SQLException
 	{
 		int partStepId = 1;
-		OrderDB orderDB = new OrderDB();
+		int orderId = 1;
+		
+		OrderCtr orderCtr = new OrderCtr();
 			
-		Order order = orderDB.findOrder(1);
+		Order order = orderCtr.findOrder(orderId);
 		List<PartStep> steps = order.getPartStepList();
 		
 		Boolean found = false;
 		int i = 0;
-		while (!found)
+		while (!found || steps.size() > i)
 		{
 			PartStep po = steps.get(i);
 			if (po.getId() == partStepId)
 			{
-				orderDB.deletePartSteps(partStepId);
+				orderCtr.deletePartSteps(partStepId);
 				
 				found = true;
 			}
+			i++;
 		}
+		
+		// Check the partsteps is deleted by getting the data again and check it exist
+		order = orderCtr.findOrder(orderId);
+		steps = order.getPartStepList();
+		
+		found = false;
+		i = 0;
+		while (!found || steps.size() > i)
+		{
+			PartStep po = steps.get(i);
+			if (po.getId() == partStepId)
+			{
+				found = true;
+			}
+			l++;
+		}
+		
+		assertTrue(!found);
 	}
 	
+	/**
+	 * This is a positive test, testing to get partorders by orderId
+	 * @throws SQLException SQL-server can fail
+	 */
 	@Test
 	public void positiveTest_FindAllPartOrders() throws SQLException {
 		OrderCtr oc = new OrderCtr();
