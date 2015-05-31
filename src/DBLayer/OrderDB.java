@@ -61,6 +61,11 @@ public class OrderDB implements IOrderDB {
 		stmt.close();
 	}
 	
+	/**
+	 * Find all active orders by ResaurantID
+	 * @param restaurantID current resaurantID
+	 * @return list of Order objects
+	 */
 	public ArrayList<Order> findAllActiveOrders(int restaurantID) throws SQLException
 	{
 		if(restaurantID <= 0)
@@ -267,6 +272,10 @@ public class OrderDB implements IOrderDB {
 		return query;		
 	}
 	
+	/**
+	 * Save a partstep by inserting PartStep object as parameter
+	 * @param partStep current filled partstep
+	 */
 	@Override
 	public void savePartStep(PartStep partStep) throws SQLException
 	{
@@ -357,6 +366,4 @@ public class OrderDB implements IOrderDB {
 		
 		return model;
 	}
-	
-	
 }
