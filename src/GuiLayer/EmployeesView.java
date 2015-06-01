@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,9 +53,11 @@ public class EmployeesView extends JPanel {
 			panel_4.add(panel, "cell " + colIndex + " " + rowIndex + ",grow");
 			panel.setLayout(null);
 			
-			JLabel lblNewLabel = new JLabel("New label");
+			JLabel lblNewLabel = new JLabel("");
 			lblNewLabel.setBounds(0, 0, 97, 97);
-			lblNewLabel.setIcon(new ImageIcon("D:\\Datamatiker\\1. års projekt\\Kode29052015\\trunk\\Tobias.jpg"));
+			
+			String basePath = new File("images.jpg").getAbsolutePath();			
+			lblNewLabel.setIcon(new ImageIcon(basePath));
 			panel.add(lblNewLabel);
 			
 			JLabel lblFlotfyr = new JLabel(employee.getName());

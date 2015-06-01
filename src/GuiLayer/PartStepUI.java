@@ -136,7 +136,9 @@ public class PartStepUI extends JFrame {
 		this.setResizable(false);
 		this.setSize(new Dimension(1024, 768));
 	}
-	
+	/**
+	 * this method create the list of all orders and the container for order details
+	 */
 	public void createOrderItems()
 	{		
 		panel_1.removeAll();

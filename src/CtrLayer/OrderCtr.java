@@ -76,7 +76,7 @@ public class OrderCtr {
 	 * @param ps
 	 * @throws SQLException
 	 */
-	public void finishStep(PartStep ps) throws SQLException
+	public void savePartStep(PartStep ps) throws SQLException
 	{
 		orderDB.savePartStep(ps);
 	}

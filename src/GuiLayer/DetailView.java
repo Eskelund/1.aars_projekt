@@ -62,7 +62,9 @@ public class DetailView extends JPanel {
 		}
 	
 	
-	
+	/**
+	 * This method creates all the containers this class
+	 */
 	public void initialize(){
 		
 			panel.removeAll();
@@ -135,6 +137,11 @@ public class DetailView extends JPanel {
 		
 	}
 	
+	
+	/**
+	 * this method sets all the info in the containers 
+	 * @param orderid
+	 */
 	public void setDetailsText(final int orderid )
 	{
 		
@@ -281,11 +288,17 @@ public class DetailView extends JPanel {
 	
 	
 	
-	
+	/**
+	 * returns stepsContainer witch is the container with all the steps
+	 * @return
+	 */
 	public JPanel getstepsContainer(){
 		return stepsContainer;
 	}
 	
+	/**
+	 * Updates the stepsContainer
+	 */
 	public void repaintStepsContainer(){
 		stepsContainer.setVisible(true);
 		super.repaint();
@@ -307,23 +320,32 @@ public class DetailView extends JPanel {
 		this.selectedEmployees = selectedEmployees;
 	}
 	
+	
+	/**
+	 * Calls the function on partstepCtr to save the new partstep
+	 */
 	public void saveStep()
 	{
 		try {
 			partstepCtr.associateEmployees(selectedEmployees);
-			partstepCtr.finishStep();
+			partstepCtr.savePartStep();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(this, "Database fejl: " + e.getMessage(), "Fejl", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
+	/**
+	 * updates this panel
+	 */
 	public void refresh() {
 		partStepUI.createOrderItems();
 		initialize();
 		
 	}
 	
-	
+	/**
+	 * showStepsContainers the StepsContainer.
+	 */
 	public void showStepsContainer() {
 		this.getstepsContainer().setVisible(true);
 		this.getstepsContainer().revalidate();
