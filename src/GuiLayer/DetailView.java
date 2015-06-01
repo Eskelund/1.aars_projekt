@@ -328,7 +328,7 @@ public class DetailView extends JPanel {
 	{
 		try {
 			partstepCtr.associateEmployees(selectedEmployees);
-			partstepCtr.finishStep();
+			partstepCtr.savePartStep();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(this, "Database fejl: " + e.getMessage(), "Fejl", JOptionPane.ERROR_MESSAGE);
 		}

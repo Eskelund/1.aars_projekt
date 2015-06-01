@@ -70,7 +70,7 @@ public class JOrder {
 		ps.setEmployees(eCtr.getAllEmployees(1));
 		
 		if (doExecuteQuery) {
-			oCtr.finishStep(ps);
+			oCtr.savePartStep(ps);
 		}
 	}
 

@@ -81,8 +81,8 @@ public class PartStepCtr {
 	 * Firing this method, sends all data to database
 	 * @throws SQLException 
 	 */
-	public void finishStep() throws SQLException
+	public void savePartStep() throws SQLException
 	{
-		orderCtr.finishStep(currentPartStep);
+		orderCtr.savePartStep(currentPartStep);
 	}
 }
