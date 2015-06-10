@@ -152,7 +152,7 @@ public class JOrder {
 			{
 				found = true;
 			}
-			l++;
+			i++;
 		}
 		
 		assertTrue(!found);

@@ -3,6 +3,10 @@
  */
 package CtrLayer;
 
+import java.awt.Color;
+
+import javax.swing.JLabel;
+
 import DBLayer.ConnectionChecker;
 
 /**
@@ -10,23 +14,49 @@ import DBLayer.ConnectionChecker;
  *
  */
 public class DBConnectionCheckerThread extends Thread {
-	private Boolean isConnectionOpen = false;
+	private Boolean isConnectionOpen;
+	private JLabel label;
 	
-	public DBConnectionCheckerThread() throws InterruptedException
+	public DBConnectionCheckerThread(JLabel label)
 	{
-		int times = 8;
-		int i = 0;
+		this.label = label;
+		isConnectionOpen = false;
+	}
+	
+	public void run() {
+		ConnectionChecker cc = new ConnectionChecker();
+		
+		int times = 12; // number of allowed failed times
+		int i = 0; // number of failed times
 		while (i < times)
 		{
-			ConnectionChecker cc = new ConnectionChecker();
 			if (!cc.isConnectionActive()) {
+				// set connection is closed
 				setIsConnectionOpen(false);
+				
+				// set label color
+				this.label.setText("Database offline");
+				this.label.setForeground(Color.RED);
+				
 				i++;
 			} else {
+				// reset connection trying times
+				i = 0;
+				
+				// set connection is open
 				setIsConnectionOpen(true);
+				
+				// set label color
+				this.label.setText("Database online");
+				this.label.setForeground(Color.GREEN);
 			}
 			
-			Thread.sleep(4000);
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

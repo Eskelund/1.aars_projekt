@@ -42,6 +42,7 @@ import javax.swing.JList;
 
 import java.awt.GridLayout;
 
+import CtrLayer.DBConnectionCheckerCtr;
 import CtrLayer.OrderCtr;
 import CtrLayer.PartStepCtr;
 import ModelLayer.Customer;
@@ -90,6 +91,8 @@ public class PartStepUI extends JFrame {
 	private JPanel panel_2 = new JPanel();
 	private DetailView k = new DetailView(panel_2, this);
 	private int restaurantid;
+	private DBConnectionCheckerCtr checker;
+	
 	public PartStepUI(int restaurantid) {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		orderCtr = new OrderCtr();
@@ -118,6 +121,15 @@ public class PartStepUI extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		scrollPane.setBounds(20, 36, 493, 675);
+		
+	
+		JLabel lblNewLabel_4 = new JLabel("Database online");
+		lblNewLabel_4.setForeground(Color.RED);
+		checker = new DBConnectionCheckerCtr(lblNewLabel_4);
+		
+		lblNewLabel_4.setBounds(870, 11, 138, 14);
+		panel.add(lblNewLabel_4);
+		
 		panel.add(scrollPane);
 		
 		panel_1 = new JPanel();
@@ -145,9 +157,11 @@ public class PartStepUI extends JFrame {
 		
 		JFrame f = this;
 		try {
-			try {
+			try {				
 				orders = orderCtr.findAllActiveOrders(restaurantid);
 				
+				// check thread is alive
+				checker.isAlive();				
 			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(f, "Database fejl: " + e.getMessage(), "Fejl", JOptionPane.ERROR_MESSAGE);
 			}
@@ -231,6 +245,9 @@ public class PartStepUI extends JFrame {
 				btnNewButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {	
 						k.setDetailsText(order.getId());
+						
+						// check thread is alive
+						checker.isAlive();
 					}
 				});
 				btnNewButton.setBounds(356, 127, 100, 23);

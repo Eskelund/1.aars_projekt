@@ -3,28 +3,27 @@
  */
 package CtrLayer;
 
+import javax.swing.JLabel;
+
 /**
  * @author Kim Dam Grønhøj
  *
  */
 public class DBConnectionCheckerCtr {
-	private Thread checker;
+	private Thread threadConnectionChecker;
 	
-	public DBConnectionCheckerCtr()
+	public DBConnectionCheckerCtr(JLabel label)
 	{
-		try {
-			checker = (new Thread(new DBConnectionCheckerThread()));
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		checker.start();
+		threadConnectionChecker = (new Thread(new DBConnectionCheckerThread(label)));
+		
+		// start checeker
+		threadConnectionChecker.start();
 	}
 	
 	public void isAlive() {
-		if (!checker.isAlive())
+		if (!threadConnectionChecker.isAlive())
 		{
-			checker.start();
+			threadConnectionChecker.start();
 		}
 	}
 }
