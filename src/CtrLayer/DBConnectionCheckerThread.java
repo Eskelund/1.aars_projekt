@@ -15,13 +15,11 @@ import DBLayer.ConnectionChecker;
  *
  */
 public class DBConnectionCheckerThread extends Thread {
-	private Boolean isConnectionOpen;
 	private IConnectionStatusCallback callback;
 	
 	public DBConnectionCheckerThread(IConnectionStatusCallback callback)
 	{
 		this.callback = callback;
-		isConnectionOpen = false;
 	}
 	
 	public void run() {
@@ -32,9 +30,6 @@ public class DBConnectionCheckerThread extends Thread {
 		while (i < times)
 		{
 			if (!cc.isConnectionActive()) {
-				// set connection is closed
-				setIsConnectionOpen(false);
-				
 				// callback to program connection was closed
 				this.callback.connectionStatusCallback(false);
 				
@@ -45,9 +40,6 @@ public class DBConnectionCheckerThread extends Thread {
 				
 				// callback to program connection was open
 				this.callback.connectionStatusCallback(true);
-				
-				// set connection is open
-				setIsConnectionOpen(true);
 			}
 			
 			try {
@@ -57,19 +49,5 @@ public class DBConnectionCheckerThread extends Thread {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	/**
-	 * @return the isConnectionOpen
-	 */
-	public Boolean getIsConnectionOpen() {
-		return isConnectionOpen;
-	}
-
-	/**
-	 * @param isConnectionOpen the isConnectionOpen to set
-	 */
-	public void setIsConnectionOpen(Boolean isConnectionOpen) {
-		this.isConnectionOpen = isConnectionOpen;
 	}
 }
