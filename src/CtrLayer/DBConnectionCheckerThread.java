@@ -23,13 +23,13 @@ public class DBConnectionCheckerThread extends Thread {
 	}
 	
 	public void run() {
-		DBConnectionChecker cc = new DBConnectionChecker();
+		DBConnectionChecker dbConnection = new DBConnectionChecker();
 		
 		int times = 12; // number of allowed failed times
 		int i = 0; // number of failed times
 		while (i < times)
 		{
-			if (!cc.isConnectionActive()) {
+			if (!dbConnection.isConnectionActive()) {
 				// callback to program connection was closed
 				this.callback.connectionStatusCallback(false);
 				
