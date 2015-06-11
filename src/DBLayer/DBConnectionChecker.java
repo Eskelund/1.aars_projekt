@@ -13,10 +13,10 @@ import java.util.Enumeration;
  * @author Kim Dam Grønhøj
  *
  */
-public class ConnectionChecker {
+public class DBConnectionChecker {
 	private Connection con;
 	
-	public ConnectionChecker() {
+	public DBConnectionChecker() {
 		try {
 			this.con = DBConnection.getInstanceTestConnection().getDBcon();
 		} catch (Exception e) {

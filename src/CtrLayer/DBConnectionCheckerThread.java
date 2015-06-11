@@ -7,7 +7,7 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 
-import DBLayer.ConnectionChecker;
+import DBLayer.DBConnectionChecker;
 
 
 /**
@@ -23,7 +23,7 @@ public class DBConnectionCheckerThread extends Thread {
 	}
 	
 	public void run() {
-		ConnectionChecker cc = new ConnectionChecker();
+		DBConnectionChecker cc = new DBConnectionChecker();
 		
 		int times = 12; // number of allowed failed times
 		int i = 0; // number of failed times
