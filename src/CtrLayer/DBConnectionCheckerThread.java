@@ -9,17 +9,18 @@ import javax.swing.JLabel;
 
 import DBLayer.ConnectionChecker;
 
+
 /**
  * @author Kim Dam Grønhøj
  *
  */
 public class DBConnectionCheckerThread extends Thread {
 	private Boolean isConnectionOpen;
-	private JLabel label;
+	private IConnectionStatusCallback callback;
 	
-	public DBConnectionCheckerThread(JLabel label)
+	public DBConnectionCheckerThread(IConnectionStatusCallback callback)
 	{
-		this.label = label;
+		this.callback = callback;
 		isConnectionOpen = false;
 	}
 	
@@ -34,21 +35,19 @@ public class DBConnectionCheckerThread extends Thread {
 				// set connection is closed
 				setIsConnectionOpen(false);
 				
-				// set label color
-				this.label.setText("Database offline");
-				this.label.setForeground(Color.RED);
+				// callback to program connection was closed
+				this.callback.connectionStatusCallback(false);
 				
 				i++;
 			} else {
 				// reset connection trying times
 				i = 0;
 				
+				// callback to program connection was open
+				this.callback.connectionStatusCallback(true);
+				
 				// set connection is open
 				setIsConnectionOpen(true);
-				
-				// set label color
-				this.label.setText("Database online");
-				this.label.setForeground(Color.GREEN);
 			}
 			
 			try {

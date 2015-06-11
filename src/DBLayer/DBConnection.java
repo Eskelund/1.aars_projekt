@@ -100,6 +100,17 @@ public class DBConnection
         return instance;
     }
     
+    //this method is used for test connection and to get the instance of the connection
+    public static DBConnection getInstanceTestConnection()
+    {     
+        return new DBConnection();
+    }
+    
+    public static void emptyInstance()
+    {     
+    	instance = null;
+    }
+    
     public static void startTransaction()
     {
       try
