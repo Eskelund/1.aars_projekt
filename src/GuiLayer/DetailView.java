@@ -152,6 +152,7 @@ public class DetailView extends JPanel {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(p, "Database fejl: " + e.getMessage(), "Fejl", JOptionPane.ERROR_MESSAGE);
 		}
+		
 		if(info != null){
 		final Order order = info.getOrder();
 		Customer customer = order.getCustomer();

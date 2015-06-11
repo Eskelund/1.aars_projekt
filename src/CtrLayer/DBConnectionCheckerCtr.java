@@ -8,6 +8,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 
 import DBLayer.DBConnection;
+import GuiLayer.PartStepUI;
 
 /**
  * @author Kim Dam Grønhøj
@@ -16,10 +17,17 @@ import DBLayer.DBConnection;
 public class DBConnectionCheckerCtr implements IConnectionStatusCallback  {
 	private Thread threadConnectionChecker;
 	private JLabel label;
+	private PartStepUI frame;
+	private Boolean useOpenConnectionMessages;
+	private Boolean useClosedConnectionMessages;
 	
-	public DBConnectionCheckerCtr(JLabel label)
+	public DBConnectionCheckerCtr(PartStepUI frame, JLabel label)
 	{
+		this.frame = frame;
 		this.label = label;
+		this.useOpenConnectionMessages = false;
+		this.useClosedConnectionMessages = true;
+		
 		// create thread and set the controller itself as callback
 		threadConnectionChecker = (new Thread(new DBConnectionCheckerThread(this)));
 		
@@ -42,11 +50,28 @@ public class DBConnectionCheckerCtr implements IConnectionStatusCallback  {
 	 */
 	public void connectionStatusCallback(Boolean isConnected) {
 		if (isConnected) {
+			if (this.useOpenConnectionMessages) {
+				this.useOpenConnectionMessages = false;
+				this.useClosedConnectionMessages = true;
+				
+				// send gui messages
+				this.frame.enableWindowAndConnectionIsBack();
+			}
+			
+			// update gui
 			this.label.setText("Database online");
 			this.label.setForeground(Color.GREEN);
 		} else {
+			this.useOpenConnectionMessages = true;
+			// reset database instance
 			DBConnection.emptyInstance();
 			
+			// send gui messages
+			if (this.useClosedConnectionMessages) {
+				this.frame.disableWindow();
+				this.useClosedConnectionMessages = false;
+			}
+			// update gui
 			this.label.setText("Database offline");
 			this.label.setForeground(Color.red);
 		}

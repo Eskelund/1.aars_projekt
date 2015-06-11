@@ -125,7 +125,7 @@ public class PartStepUI extends JFrame {
 	
 		JLabel lblNewLabel_4 = new JLabel("Database online");
 		lblNewLabel_4.setForeground(Color.RED);
-		checker = new DBConnectionCheckerCtr(lblNewLabel_4);
+		checker = new DBConnectionCheckerCtr(this, lblNewLabel_4);
 		
 		lblNewLabel_4.setBounds(870, 11, 138, 14);
 		panel.add(lblNewLabel_4);
@@ -148,6 +148,17 @@ public class PartStepUI extends JFrame {
 		this.setResizable(false);
 		this.setSize(new Dimension(1024, 768));
 	}
+	
+	public void enableWindowAndConnectionIsBack() {
+		this.setEnabled(true);
+		JOptionPane.showMessageDialog(this, "Forbindelsen er tilbage", "Database forbindelse", JOptionPane.DEFAULT_OPTION);
+	}
+	
+	public void disableWindow() {
+		this.setEnabled(false);
+		JOptionPane.showMessageDialog(this, "Forbindelsen blev afbrudt", "Database forbindelse", JOptionPane.ERROR_MESSAGE);
+	}
+	
 	/**
 	 * this method create the list of all orders and the container for order details
 	 */
