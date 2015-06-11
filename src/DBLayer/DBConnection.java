@@ -109,7 +109,9 @@ public class DBConnection
     public static void emptyInstance()
     {
     	try {
-			con.close();
+    		if (con != null) {
+    			con.close();
+    		}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
