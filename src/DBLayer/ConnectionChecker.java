@@ -20,7 +20,7 @@ public class ConnectionChecker {
 		try {
 			this.con = DBConnection.getInstanceTestConnection().getDBcon();
 		} catch (Exception e) {
-			// Do nothing, connection is closed
+			this.con = null;
 		}
 	}
 	
