@@ -42,7 +42,6 @@ import javax.swing.JList;
 
 import java.awt.GridLayout;
 
-import CtrLayer.DBConnectionCheckerCtr;
 import CtrLayer.OrderCtr;
 import CtrLayer.PartStepCtr;
 import ModelLayer.Customer;
@@ -53,6 +52,7 @@ import ModelLayer.PartStep;
 import ModelLayer.Product;
 import ModelLayer.Step;
 import ModelLayer.Town;
+import Utilities.DBConnectionCheckerUtility;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -91,7 +91,7 @@ public class PartStepUI extends JFrame {
 	private JPanel panel_2 = new JPanel();
 	private DetailView k = new DetailView(panel_2, this);
 	private int restaurantid;
-	private DBConnectionCheckerCtr checker;
+	private DBConnectionCheckerUtility checker;
 	
 	public PartStepUI(int restaurantid) {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -125,7 +125,7 @@ public class PartStepUI extends JFrame {
 	
 		JLabel lblNewLabel_4 = new JLabel("Database online");
 		lblNewLabel_4.setForeground(Color.RED);
-		checker = new DBConnectionCheckerCtr(this, lblNewLabel_4);
+		checker = new DBConnectionCheckerUtility(this, lblNewLabel_4);
 		
 		lblNewLabel_4.setBounds(870, 11, 138, 14);
 		panel.add(lblNewLabel_4);

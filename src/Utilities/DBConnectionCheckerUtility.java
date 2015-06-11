@@ -1,7 +1,7 @@
 /**
  * 
  */
-package CtrLayer;
+package Utilities;
 
 import java.awt.Color;
 
@@ -14,14 +14,14 @@ import GuiLayer.PartStepUI;
  * @author Kim Dam Grønhøj
  *
  */
-public class DBConnectionCheckerCtr implements IConnectionStatusCallback  {
+public class DBConnectionCheckerUtility implements IConnectionStatusCallback  {
 	private Thread threadConnectionChecker;
 	private JLabel label;
 	private PartStepUI frame;
 	private Boolean useOpenConnectionMessages;
 	private Boolean useClosedConnectionMessages;
 	
-	public DBConnectionCheckerCtr(PartStepUI frame, JLabel label)
+	public DBConnectionCheckerUtility(PartStepUI frame, JLabel label)
 	{
 		this.frame = frame;
 		this.label = label;
