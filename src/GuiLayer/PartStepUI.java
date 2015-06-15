@@ -91,6 +91,7 @@ public class PartStepUI extends JFrame {
 	private JPanel panel_2 = new JPanel();
 	private DetailView k = new DetailView(panel_2, this);
 	private int restaurantid;
+	private JLabel lblNewLabel_4;
 	private DBConnectionCheckerUtility checker;
 	
 	public PartStepUI(int restaurantid) {
@@ -123,9 +124,10 @@ public class PartStepUI extends JFrame {
 		scrollPane.setBounds(20, 36, 493, 675);
 		
 	
-		JLabel lblNewLabel_4 = new JLabel("Database online");
-		lblNewLabel_4.setForeground(Color.RED);
-		checker = new DBConnectionCheckerUtility(this, lblNewLabel_4);
+		lblNewLabel_4 = new JLabel("Database online");
+		lblNewLabel_4.setForeground(Color.GREEN);
+		
+		checker = new DBConnectionCheckerUtility(this);
 		
 		lblNewLabel_4.setBounds(870, 11, 138, 14);
 		panel.add(lblNewLabel_4);
@@ -150,13 +152,22 @@ public class PartStepUI extends JFrame {
 	}
 	
 	public void enableWindowAndConnectionIsBack() {
+		this.lblNewLabel_4.setText("Database online");
+		this.lblNewLabel_4.setForeground(Color.GREEN);
 		this.setEnabled(true);
 		JOptionPane.showMessageDialog(this, "Forbindelsen er tilbage", "Database forbindelse", JOptionPane.DEFAULT_OPTION);
+		this.toFront();
+		this.repaint();
 	}
 	
 	public void disableWindow() {
+		// update gui
+		this.lblNewLabel_4.setText("Database offline");
+		this.lblNewLabel_4.setForeground(Color.red);
 		this.setEnabled(false);
 		JOptionPane.showMessageDialog(this, "Forbindelsen blev afbrudt", "Database forbindelse", JOptionPane.ERROR_MESSAGE);
+		this.toFront();
+		this.repaint();
 	}
 	
 	/**

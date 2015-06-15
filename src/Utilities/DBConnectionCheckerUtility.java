@@ -11,25 +11,23 @@ import DBLayer.DBConnection;
 import GuiLayer.PartStepUI;
 
 /**
- * @author Kim Dam Grønhøj
+ * @author Kim Dam Grï¿½nhï¿½j
  *
  */
 public class DBConnectionCheckerUtility implements IConnectionStatusCallback  {
 	private Thread threadConnectionChecker;
-	private JLabel label;
 	private PartStepUI frame;
 	private Boolean useOpenConnectionMessages;
 	private Boolean useClosedConnectionMessages;
 	
-	public DBConnectionCheckerUtility(PartStepUI frame, JLabel label)
+	public DBConnectionCheckerUtility(PartStepUI frame)
 	{
 		this.frame = frame;
-		this.label = label;
 		this.useOpenConnectionMessages = false;
 		this.useClosedConnectionMessages = true;
 		
 		// create thread and set the controller itself as callback
-		threadConnectionChecker = (new Thread(new DBConnectionCheckerThread(this)));
+		threadConnectionChecker = new DBConnectionCheckerThread(this);
 		
 		// start checker
 		threadConnectionChecker.start();
@@ -59,8 +57,7 @@ public class DBConnectionCheckerUtility implements IConnectionStatusCallback  {
 			}
 			
 			// update gui
-			this.label.setText("Database online");
-			this.label.setForeground(Color.GREEN);
+
 		} else {
 			this.useOpenConnectionMessages = true;
 			// reset database instance
@@ -71,9 +68,7 @@ public class DBConnectionCheckerUtility implements IConnectionStatusCallback  {
 				this.frame.disableWindow();
 				this.useClosedConnectionMessages = false;
 			}
-			// update gui
-			this.label.setText("Database offline");
-			this.label.setForeground(Color.red);
+
 		}
 	}
 }

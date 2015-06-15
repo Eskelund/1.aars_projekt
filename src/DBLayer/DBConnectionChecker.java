@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.Enumeration;
 
 /**
- * @author Kim Dam Grønhøj
+ * @author Kim Dam Grï¿½nhï¿½j
  *
  */
 public class DBConnectionChecker {

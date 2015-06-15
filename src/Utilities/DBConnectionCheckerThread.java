@@ -11,7 +11,7 @@ import DBLayer.DBConnectionChecker;
 
 
 /**
- * @author Kim Dam Grønhøj
+ * @author Kim Dam Grï¿½nhï¿½j
  *
  */
 public class DBConnectionCheckerThread extends Thread {
@@ -25,7 +25,7 @@ public class DBConnectionCheckerThread extends Thread {
 	public void run() {
 		DBConnectionChecker dbConnection = new DBConnectionChecker();
 		
-		int times = 12; // number of allowed failed times
+		int times = 40; // number of allowed failed times
 		int i = 0; // number of failed times
 		while (i < times)
 		{
